@@ -16,6 +16,9 @@ function sendQuery(query) {
 		data: query,
 		success: function(data) {
 			console.log(data);
+			console.log(data.hits.total);
+			console.log(data.hits.hits[0]._source.source)
+			$('#octopus').append(data.hits.total+" hits from " + data.hits.hits[0]._source.source + "<br/>")
 		}
 	});
 
@@ -28,8 +31,11 @@ function queryListener() {
 	    event.preventDefault(); //  stop page refresh
 	    var text = $('#queryText').val();
 	    $('#queryText').val("");
-	    var query = "q=text:"+text
-	    sendQuery(query);
+	    
+	    var query = "q=%2btext:"+text
+	    sendQuery(query+"+%2bsource:iPhone");
+	    sendQuery(query+"+%2bsource:android");
+	    sendQuery(query+"+%2bsource:web");
    });
 };
 
