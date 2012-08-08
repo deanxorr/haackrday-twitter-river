@@ -24,16 +24,18 @@ function sendQuery(query) {
 function queryListener() {
 	console.log('msgListener called');
 
-  $('a#go-button').click(function() {	//	listen for form submission
+  $('#go-button').click(function() {	//	listen for form submission
 	    event.preventDefault(); //  stop page refresh
-
-	    var query = {"query":{"bool":{"must":[{"match_all":{}}],"must_not":[],"should":[]}},"from":0,"size":50,"sort":[],"facets":{}};
+	    var text = $('#queryText').val();
+	    $('#queryText').val("");
+	    var query = "q=text:"+text
 	    sendQuery(query);
    });
 };
 
 $(document).ready(function() {
   console.log('client script called');
+  queryListener();
  // updateChat();
-  sendQuery();
+ //sendQuery();
 });
